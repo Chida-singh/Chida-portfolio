@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const AboutMe = () => {
+const AboutMe = ({ mode = 'overworld' }) => {
   return (
-    <div className="minecraft-about">
+    <div className={`minecraft-about ${mode}`}>
       <h1 className="minecraft-section-title">ABOUT ME</h1>
       
       <div className="minecraft-about-container">

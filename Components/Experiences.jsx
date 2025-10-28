@@ -33,7 +33,7 @@ const experiencesData = [
   // Add more experiences as needed
 ];
 
-const Experiences = () => {
+const Experiences = ({ mode = 'overworld' }) => {
   const [currentExperience, setCurrentExperience] = useState(0);
   
   const nextExperience = () => {
@@ -45,7 +45,7 @@ const Experiences = () => {
   };
   
   return (
-    <div className="minecraft-experiences">
+    <div className={`minecraft-experiences ${mode}`}>
       <h1 className="minecraft-section-title">MY EXPERIENCE</h1>
       
       <div className="minecraft-experience-container">

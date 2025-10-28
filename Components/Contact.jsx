@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const Contact = () => {
+const Contact = ({ mode = 'overworld' }) => {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -41,7 +41,7 @@ const Contact = () => {
   };
   
   return (
-    <div className="minecraft-contact">
+    <div className={`minecraft-contact ${mode}`}>
       <h1 className="minecraft-section-title">CONTACT ME</h1>
       
       <div className="minecraft-contact-container">

@@ -9,11 +9,14 @@ import Experiences from '../Components/Experiences.jsx'
 import Home from '../Components/Home.jsx'
 import Projects from '../Components/Projects.jsx'
 import '@fontsource/press-start-2p/index.css'
-// Import background image
-import backgroundImage from './background/evening_sunset_background.jpg'
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home')
+  const [mode, setMode] = useState('overworld') // 'overworld' or 'nether'
+  
+  const toggleMode = () => {
+    setMode(prev => prev === 'overworld' ? 'nether' : 'overworld')
+  }
   
   // Navigation menu items with Minecraft item icons
   const navItems = [
@@ -33,15 +36,15 @@ function App() {
   const renderSection = () => {
     switch(currentSection) {
       case 'home':
-        return <Home />;
+        return <Home mode={mode} />;
       case 'projects':
-        return <Projects />;
+        return <Projects mode={mode} />;
       case 'experience':
-        return <Experiences />;
+        return <Experiences mode={mode} />;
       case 'about':
-        return <AboutMe />;
+        return <AboutMe mode={mode} />;
       case 'contact':
-        return <Contact />;
+        return <Contact mode={mode} />;
       case 'skills':
         return <div className="skills-section">
           <h1>MY SKILLS</h1>
@@ -91,12 +94,19 @@ function App() {
   };
 
   return (
-    <div className="minecraft-world" style={{
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
-    }}>
+    <div className={`minecraft-world ${mode}`}>
+      {/* Video Background */}
+      <video 
+        key={mode}
+        autoPlay 
+        loop 
+        muted 
+        playsInline
+        className="video-background"
+        src={mode === 'overworld' ? '/background/Overworld_wallpaper.mp4' : '/background/Nether_wallpaper.mp4'}
+      />
+      <div className="video-overlay"></div>
+      
       {/* Top info bar */}
       <div className="minecraft-info-bar">
         <div className="player-info">
@@ -104,18 +114,19 @@ function App() {
           <p>Computer Science & Design</p>
           <p>Bengaluru, Karnataka</p>
         </div>
-        <div className="top-icons">
-          <div className="icon-slot">
-            <div className="minecraft-icon" style={{ backgroundImage: 'url("/src/assets/minecraft_player_head.png")' }}></div>
-          </div>
-          <div className="icon-slot">
-            <div className="minecraft-icon" style={{ backgroundImage: 'url("/src/assets/minecraft_chest.png")' }}></div>
-          </div>
-          <div className="icon-slot">
-            <div className="minecraft-icon" style={{ backgroundImage: 'url("/src/assets/minecraft_map.png")' }}></div>
-          </div>
-          <div className="icon-slot">
-            <div className="minecraft-icon" style={{ backgroundImage: 'url("/src/assets/minecraft_diamond.png")' }}></div>
+        <div className="mode-slider-container" onClick={toggleMode}>
+          <div className={`mode-slider ${mode}`}>
+            <div className="slider-track">
+              <span className="slider-label left">Overworld</span>
+              <span className="slider-label right">Nether</span>
+            </div>
+            <div className="slider-thumb">
+              <img 
+                src={mode === 'overworld' ? '/src/assets/minecraft_grass_block.png' : '/src/assets/minecraft_netherrack.png'} 
+                alt={mode} 
+                className="slider-icon"
+              />
+            </div>
           </div>
         </div>
       </div>
